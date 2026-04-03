@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CORJUL Electric Spice — Operator Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+    }
+
+    :root {
+      --black: #0e0e0e;
+      --off-white: #f2ede6;
+      --rust: #c0392b;
+      --rust-dark: #96281c;
+      --warm-gray: #2a2420;
+      --mid-gray: #5a4f48;
+      --light-gray: #c8bfb8;
+      --border: #3a302a;
+    }
+
+    html { 
+      scroll-behavior: smooth; 
+    }
+
+    body {
+      background: var(--black);
+      color: var(--off-white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; 
+      left: 0; 
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(14,14,14,0.92);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-brand {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--off-white);
+      text-decoration: none;
+    }
+
+    .nav-brand span { 
+      color: var(--rust); 
+    }
+
+    .nav-cta {
+      display: inline-block;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 500;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--off-white);
+      border: 1.5px solid var(--rust);
+      padding: 8px 20px;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .nav-cta:hover { 
+      background: var(--rust); 
+    }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 80px;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 56px 80px 56px;
+      border-right: 1px solid var(--border);
+    }
+
+    .hero-tag {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 400;
+      font-size: 0.72rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--rust);
+      margin-bottom: 24px;
+    }
+
+    .hero-h1 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: clamp(2.8rem, 4.5vw, 4.6rem);
+      line-height: 1.0;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 28px;
+      color: var(--off-white);
+    }
+
+    .hero-h1 em {
+      font-style: normal;
+      color: var(--rust);
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--light-gray);
+      max-width: 440px;
+      margin-bottom: 40px;
+      line-height: 1.75;
+      letter-spacing: 0.01em;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 0.82rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      background: var(--rust);
+      color: var(--off-white);
+      padding: 15px 34px;
+      text-decoration: none;
+      border: 2px solid var(--rust);
+      transition: background 0.2s, color 0.2s;
+      align-self: flex-start;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--rust);
+    }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+      background: var(--warm-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-visual {
+      width: 100%;
+      height: 100%;
+      min-height: 480px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .hero-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .dust-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 100%, rgba(192,57,43,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-visual-label {
+      position: absolute;
+      bottom: 32px;
+      left: 32px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--mid-gray);
+      background: rgba(0,0,0,0.4);
+      padding: 8px 12px;
+      backdrop-filter: blur(4px);
+    }
+
+    /* ─── SECTION BASE ─── */
+    section {
+      border-top: 1px solid var(--border);
+      padding: 96px 56px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .full-bleed {
+      max-width: 100%;
+      padding-left: 0;
+      padding-right: 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .full-bleed-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 96px 56px;
+    }
+
+    .section-label {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 400;
+      font-size: 0.7rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--rust);
+      margin-bottom: 20px;
+    }
+
+    .section-h2 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.9rem, 3vw, 3rem);
+      text-transform: uppercase;
+      line-height: 1.05;
+      letter-spacing: 0.05em;
+      margin-bottom: 40px;
+    }
+
+    /* ─── VIDEO SECTION ─── */
+    #demo {
+      background: var(--warm-gray);
+    }
+
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 860px;
+      margin: 0 auto;
+      aspect-ratio: 16/9;
+      background: #1a1410;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .video-bg-lines {
+      position: absolute;
+      inset: 0;
+      opacity: 0.07;
+      background-image: repeating-linear-gradient(
+        0deg, var(--off-white) 0px, var(--off-white) 1px, transparent 1px, transparent 32px
+      );
+    }
+
+    .play-btn {
+      width: 72px;
+      height: 72px;
+      border: 2px solid var(--rust);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      transition: background 0.2s;
+    }
+
+    .video-wrap:hover .play-btn { 
+      background: var(--rust); 
+    }
+
+    .play-btn svg { 
+      margin-left: 4px; 
+    }
+
+    .video-caption {
+      text-align: center;
+      margin-top: 20px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 400;
+      font-size: 0.82rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--light-gray);
+    }
+
+    /* ─── HOW IT WORKS ─── */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      margin-top: 48px;
+      border: 1px solid var(--border);
+    }
+
+    .step {
+      padding: 48px 40px;
+      border-right: 1px solid var(--border);
+    }
+
+    .step:last-child { 
+      border-right: none; 
+    }
+
+    .step-num {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+      font-size: 3rem;
+      color: var(--border);
+      line-height: 1;
+      margin-bottom: 20px;
+      letter-spacing: 0.06em;
+    }
+
+    .step-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 1.15rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+      color: var(--off-white);
+    }
+
+    .step p {
+      font-size: 0.92rem;
+      font-weight: 300;
+      color: var(--light-gray);
+      line-height: 1.75;
+    }
+
+    .steps-note {
+      margin-top: 32px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 400;
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--mid-gray);
+      border-left: 3px solid var(--rust);
+      padding-left: 16px;
+    }
+
+    /* ─── BEST FIRST TESTS ─── */
+    #tests { 
+      background: var(--warm-gray); 
+    }
+
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .item-card {
+      border: 1px solid var(--border);
+      padding: 32px 16px 24px;
+      text-align: center;
+      background: var(--black);
+      transition: border-color 0.2s;
+    }
+
+    .item-card:hover { 
+      border-color: var(--rust); 
+    }
+
+    .item-icon {
+      font-size: 2.4rem;
+      display: block;
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+
+    .item-name {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 500;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--off-white);
+    }
+
+    .tests-note {
+      margin-top: 32px;
+      font-size: 0.95rem;
+      color: var(--mid-gray);
+    }
+
+    .tests-note strong { 
+      color: var(--off-white); 
+    }
+
+    /* ─── WHY ─── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+      margin-top: 40px;
+      border: 1px solid var(--border);
+    }
+
+    .why-item {
+      padding: 40px 44px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .why-item:nth-child(2n) { 
+      border-right: none; 
+    }
+    
+    .why-item:nth-child(3), 
+    .why-item:nth-child(4) { 
+      border-bottom: none; 
+    }
+
+    .why-num {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 400;
+      font-size: 0.7rem;
+      letter-spacing: 0.24em;
+      color: var(--rust);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    .why-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    .why-item p {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--light-gray);
+      line-height: 1.75;
+    }
+
+    /* ─── PRICING ─── */
+    #pricing { 
+      background: var(--warm-gray); 
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 40px;
+    }
+
+    .price-block {
+      border: 1px solid var(--border);
+      background: var(--black);
+      padding: 40px;
+    }
+
+    .price-block-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 400;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--mid-gray);
+      margin-bottom: 24px;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.98rem;
+    }
+
+    .price-row:last-child { 
+      border-bottom: none; 
+    }
+
+    .price-qty { 
+      color: var(--light-gray); 
+    }
+
+    .price-amt {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: var(--off-white);
+      letter-spacing: 0.03em;
+    }
+
+    .price-note { 
+      color: var(--rust); 
+      font-size: 0.8rem; 
+      margin-left: 8px; 
+    }
+
+    .format-block {
+      border: 1px solid var(--border);
+      background: var(--black);
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .format-label {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 400;
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--mid-gray);
+      margin-bottom: 24px;
+    }
+
+    .format-name {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 2.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+
+    .format-spec {
+      font-size: 0.88rem;
+      font-weight: 300;
+      color: var(--light-gray);
+      line-height: 2;
+      letter-spacing: 0.01em;
+    }
+
+    .format-spec strong { 
+      color: var(--off-white); 
+      font-weight: 500; 
+    }
+
+    /* ─── INGREDIENTS ─── */
+    .trust-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .ingredient-list {
+      font-size: 0.92rem;
+      font-weight: 300;
+      color: var(--light-gray);
+      line-height: 2;
+      margin-top: 8px;
+      letter-spacing: 0.02em;
+    }
+
+    .trust-badges {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .badge {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 400;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border: 1.5px solid var(--border);
+      padding: 10px 20px;
+      color: var(--light-gray);
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    /* ─── CTA CLOSE ─── */
+    #contact {
+      background: var(--rust);
+      border-top: none;
+      max-width: 100%;
+      padding: 0;
+    }
+
+    .contact-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 96px 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contact-left h2 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      text-transform: uppercase;
+      line-height: 1.05;
+      letter-spacing: 0.04em;
+      margin-bottom: 24px;
+    }
+
+    .contact-left p {
+      font-size: 1rem;
+      font-weight: 300;
+      opacity: 0.88;
+      line-height: 1.75;
+      margin-bottom: 12px;
+      letter-spacing: 0.01em;
+    }
+
+    .contact-right {
+      background: rgba(0,0,0,0.18);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 44px;
+    }
+
+    .contact-name {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 1.35rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 24px;
+    }
+
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      font-size: 0.95rem;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      color: inherit;
+      transition: opacity 0.2s;
+    }
+
+    .contact-detail:hover { 
+      opacity: 0.75; 
+    }
+    
+    .contact-detail:last-child { 
+      border-bottom: none; 
+    }
+
+    .contact-icon {
+      width: 20px;
+      height: 20px;
+      opacity: 0.7;
+      flex-shrink: 0;
+    }
+
+    .contact-cta-note {
+      margin-top: 28px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 400;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.65;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid var(--border);
+      padding: 28px 56px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-brand {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 0.82rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--mid-gray);
+    }
+
+    .footer-brand span { 
+      color: var(--rust); 
+    }
+
+    .footer-note {
+      font-size: 0.72rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      color: var(--mid-gray);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { 
+        padding: 16px 24px; 
+      }
+      
+      section, 
+      .full-bleed-inner { 
+        padding: 72px 24px; 
+      }
+
+      #hero { 
+        grid-template-columns: 1fr; 
+      }
+      
+      .hero-left { 
+        padding: 60px 24px; 
+        border-right: none; 
+      }
+      
+      .hero-right { 
+        min-height: 300px; 
+      }
+
+      .steps-grid { 
+        grid-template-columns: 1fr; 
+      }
+      
+      .step { 
+        border-right: none; 
+        border-bottom: 1px solid var(--border); 
+      }
+      
+      .step:last-child { 
+        border-bottom: none; 
+      }
+
+      .items-grid { 
+        grid-template-columns: repeat(3, 1fr); 
+      }
+
+      .why-grid { 
+        grid-template-columns: 1fr; 
+      }
+      
+      .why-item { 
+        border-right: none; 
+      }
+      
+      .why-item:nth-child(3) { 
+        border-bottom: 1px solid var(--border); 
+      }
+
+      .pricing-grid { 
+        grid-template-columns: 1fr; 
+      }
+
+      .trust-inner { 
+        grid-template-columns: 1fr; 
+        gap: 36px; 
+      }
+      
+      .trust-badges { 
+        flex-direction: row; 
+        flex-wrap: wrap; 
+      }
+
+      .contact-inner { 
+        grid-template-columns: 1fr; 
+        gap: 40px; 
+      }
+      
+      footer { 
+        flex-direction: column; 
+        gap: 8px; 
+        text-align: center; 
+      }
+    }
+
+    @media (max-width: 600px) {
+      .items-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+      }
+      
+      .hero-h1 { 
+        font-size: 3rem; 
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#"><span>CORJUL</span> Electric Spice</a>
+  <a class="nav-cta" href="#contact">Contact for Kitchen Test</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="border-top:none; padding:0; max-width:100%;">
+  <div class="hero-left">
+    <div class="hero-tag">Post-Cook / Fry Finishing Dust · Operator Grade</div>
+    <h1 class="hero-h1">Make One Item<br><em>Hit Harder.</em><br>Immediately.</h1>
+    <p class="hero-sub">
+      CORJUL is a finishing dust you shake on hot fries, wings, or tenders right before they go out.
+      No new stations. No recipe rebuild. One item, one test, real difference.
+    </p>
+    <a class="btn-primary" href="#contact">Test It on One Item →</a>
+  </div>
+  <div class="hero-right">
+    <div class="hero-visual">
+      <img src="https://d2xsxph8kpxj0f.cloudfront.net/310419663029781557/7Ny52VqnfrVykgXNGgYE5v/hero_spice_action_78105fe8.png" alt="Chef shaking CORJUL spice on hot fries" class="hero-image">
+      <div class="dust-overlay"></div>
+      <div class="hero-visual-label">Post-cook application — no station change required</div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO / DEMO -->
+<div class="full-bleed" id="demo" style="background:var(--warm-gray);">
+  <div class="full-bleed-inner">
+    <div class="section-label">How It Works in the Kitchen</div>
+    <div class="video-wrap">
+      <div class="video-bg-lines"></div>
+      <div class="play-btn">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+          <polygon points="8,4 22,13 8,22" fill="#f2ede6"/>
+        </svg>
+      </div>
+    </div>
+    <p class="video-caption">Watch how it works: cook, dust, plate, serve.</p>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-label">Process</div>
+  <h2 class="section-h2">Three Steps.<br>No New Station.</h2>
+  <div class="steps-grid">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Cook as Usual</div>
+      <p>Fry, bake, or prepare your item exactly the way you already do. Nothing changes in your cook process.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">Dust or Toss While Hot</div>
+      <p>Shake CORJUL directly onto the hot item — basket, sheet pan, or plate. The heat opens the spice. Takes two seconds.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">Plate and Serve</div>
+      <p>Done. No hold time needed. No extra step at the pass. Your item hits the table with a stronger last-touch finish.</p>
+    </div>
+  </div>
+  <p class="steps-note">No new prep. No new station. No recipe rebuild.</p>
+</section>
+
+<!-- BEST FIRST TESTS -->
+<div class="full-bleed" id="tests" style="background:var(--warm-gray);">
+  <div class="full-bleed-inner">
+    <div class="section-label">Where to Start</div>
+    <h2 class="section-h2">Pick One Item.<br>Run the Test Tonight.</h2>
+    <div class="items-grid">
+      <div class="item-card">
+        <span class="item-icon">🍟</span>
+        <div class="item-name">Fries</div>
+      </div>
+      <div class="item-card">
+        <span class="item-icon">🥔</span>
+        <div class="item-name">Tots</div>
+      </div>
+      <div class="item-card">
+        <span class="item-icon">🍗</span>
+        <div class="item-name">Wings</div>
+      </div>
+      <div class="item-card">
+        <span class="item-icon">🍖</span>
+        <div class="item-name">Tenders</div>
+      </div>
+      <div class="item-card">
+        <span class="item-icon">🥨</span>
+        <div class="item-name">Bar Snacks</div>
+      </div>
+    </div>
+    <p class="tests-note" style="margin-top:28px;"><strong>Any hot fried or roasted item works.</strong> Most operators start with fries or wings — something already on the menu with high volume.</p>
+  </div>
+</div>
+
+<!-- WHY KITCHENS USE IT -->
+<section id="why">
+  <div class="section-label">Why It Works in a Working Kitchen</div>
+  <h2 class="section-h2">Built for the<br>Back of House.</h2>
+  <div class="why-grid">
+    <div class="why-item">
+      <div class="why-num">01</div>
+      <div class="why-title">Stronger Last-Touch Flavor</div>
+      <p>Applied hot, post-cook. The heat activates the spice at the moment it matters — right before it hits the table. Not buried in a marinade.</p>
+    </div>
+    <div class="why-item">
+      <div class="why-num">02</div>
+      <div class="why-title">Almost No Operational Change</div>
+      <p>It's a shaker. Your line already knows how to use a shaker. There's no new technique, no new equipment, no training session.</p>
+    </div>
+    <div class="why-item">
+      <div class="why-num">03</div>
+      <div class="why-title">Easy One-Item Test</div>
+      <p>You don't need to commit to a spice line. Test it on one thing. See if it moves. If it does, keep it. If it doesn't, you're out a shaker.</p>
+    </div>
+    <div class="why-item">
+      <div class="why-num">04</div>
+      <div class="why-title">Built for Hot Food Finishing</div>
+      <p>Formulated specifically for post-fry and post-cook application on high-heat items. Not a prep seasoning. A finishing tool.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING & FORMAT -->
+<div class="full-bleed" id="pricing" style="background:var(--warm-gray);">
+  <div class="full-bleed-inner">
+    <div class="section-label">Format + Pricing</div>
+    <h2 class="section-h2">Operator Pricing.<br>No Minimums to Start.</h2>
+    <div class="pricing-grid">
+      <div class="format-block">
+        <div class="format-label">Standard Operator Format</div>
+        <div class="format-name">10 oz<br>Shaker</div>
+        <div class="format-spec">
+          <strong>~8–10 g per serving</strong><br>
+          ~25–35 servings per shaker<br>
+          Sealed, resealable operator lid<br>
+          Ready for line use
+        </div>
+      </div>
+      <div class="price-block">
+        <div class="price-block-title">Pricing by Volume</div>
+        <div class="price-row">
+          <span class="price-qty">1–2 Shakers</span>
+          <span><span class="price-amt">$40</span><span class="price-note">each</span></span>
+        </div>
+        <div class="price-row">
+          <span class="price-qty">3+ Shakers</span>
+          <span><span class="price-amt">$36</span><span class="price-note">each</span></span>
+        </div>
+        <div class="price-row">
+          <span class="price-qty">5 lb Bulk</span>
+          <span><span class="price-amt">$250</span><span class="price-note">flat</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INGREDIENTS / TRUST -->
+<section id="ingredients">
+  <div class="section-label">What's in It</div>
+  <h2 class="section-h2">Transparent Ingredients.<br>Clean Label.</h2>
+  <div class="trust-inner">
+    <div>
+      <p class="ingredient-list">
+        Sichuan peppercorn · Chili peppers · Brown sugar · Sea salt · Star anise · Fennel ·
+        Cumin · Coriander · Black cardamom · Olive oil · Tapioca maltodextrin
+      </p>
+    </div>
+    <div class="trust-badges">
+      <div class="badge">No MSG</div>
+      <div class="badge">Gluten Free</div>
+      <div class="badge">Vegan</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / CTA -->
+<div id="contact">
+  <div class="contact-inner">
+    <div class="contact-left">
+      <h2>Test It on One Item Tonight or Tomorrow.</h2>
+      <p>What's the easiest item for you to put this on?</p>
+      <p style="font-size:0.95rem; opacity:0.75;">Text or email Nathan directly. He'll get you a shaker fast and help you figure out which item makes the most sense for your kitchen.</p>
+    </div>
+    <div class="contact-right">
+      <div class="contact-name">Nathan Alhades</div>
+      <a class="contact-detail" href="tel:5126638976">
+        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.25 1.22 2 2 0 012.22 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.08 6.08l1.08-.64a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        512-663-8976
+      </a>
+      <a class="contact-detail" href="mailto:admin@seasondeez.com">
+        <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        admin@seasondeez.com
+      </a>
+      <p class="contact-cta-note">Call, text, or email — whatever's faster for you.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand"><span>CORJUL</span> Electric Spice</div>
+  <div class="footer-note">© 2026 CORJUL. All rights reserved.</div>
+</footer>
+
+</body>
+</html>
